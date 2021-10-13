@@ -3,9 +3,7 @@ package com.example.currency.database
 
 import androidx.room.*
 import com.example.characters.database.CurrencyEntity
-import com.example.currency.data.Currency
 import kotlinx.coroutines.flow.Flow
-import retrofit2.http.DELETE
 
 @Dao
 interface CurrencyDao {

@@ -11,22 +11,31 @@ import com.example.currency.data.Currency
 import com.example.currency.restApi.CurrencyRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
-class Main2ViewModel(
+class MainSettingViewModel(
     private val cRepository: CurrencyRepository
 ) : ViewModel() {
 
+        val tommorow = LocalDate.now().plus(1, ChronoUnit.DAYS)
+        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+    val yeasDay = LocalDate.now().plus(-1, ChronoUnit.DAYS)
+        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
     val toDay = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(System.currentTimeMillis())
     val nameListLiveData: MutableLiveData<MutableList<Currency>> = MutableLiveData()
-
+    val nameListLiveData2: MutableLiveData<MutableList<Currency>> = MutableLiveData()
 
     init {
-        getListDay(toDay)
-
+        viewModelScope.launch(Dispatchers.IO) {
+            nameListLiveData.postValue(cRepository.getCurrenciesListDay(toDay))
+            nameListLiveData2.postValue(cRepository.getCurrenciesListDay(yeasDay))
+            // Log.e("KEK", cRepository.getCurrenciesListTommorow().toString())
+        }
     }
 
     fun getList() {
@@ -38,10 +47,6 @@ class Main2ViewModel(
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun getListDay(day: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            nameListLiveData.postValue(cRepository.getCurrenciesListDay(day))
-            // Log.e("KEK", cRepository.getCurrenciesListTommorow().toString())
-        }
     }
 
     fun addCurrency(currency: Currency) {
@@ -57,6 +62,7 @@ class Main2ViewModel(
             cRepository.addCurrency(newCurrency)
         }
     }
+
     fun deleteCurrenty(currency: Currency) {
         viewModelScope.launch {
             cRepository.deleteCurrency(currency)

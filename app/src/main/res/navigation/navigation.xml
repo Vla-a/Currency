@@ -18,7 +18,7 @@
 
     <fragment
     android:id="@+id/main2Fragment"
-    android:name="com.example.characters.screen.Main2Fragment"
+    android:name="com.example.characters.screen.MainSettingFragment"
     android:label="CallScheduleFragment"
     tools:layout="@layout/fragment_main2">
 

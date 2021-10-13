@@ -7,25 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.currency.data.CurrencyAdapter2
-import com.example.currency.databinding.FragmentMain2Binding
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.ItemTouchHelper
-import com.example.currency.R
 import com.example.currency.data.Currency
-import com.example.currency.screen.Main2ViewModel
-import com.example.currency.sharedprefs.SharedPrefsKeys.PREFS_BRAND_KEY
-import com.example.currency.sharedprefs.SharedPrefsUtils
+import com.example.currency.data.CurrencySettingAdapter
+import com.example.currency.databinding.FragmentMain2Binding
+import com.example.currency.screen.MainSettingViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class Main2Fragment : Fragment() {
+class MainSettingFragment : Fragment() {
 
     private var list: MutableList<Currency> = mutableListOf()
-    private val myViewModel: Main2ViewModel by viewModel()
+    private val myViewModel: MainSettingViewModel by viewModel()
     private var binding: FragmentMain2Binding? = null
 
     override fun onCreateView(
@@ -43,13 +40,15 @@ class Main2Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val currencyAdapter = CurrencyAdapter2(
+
+        val currencyAdapter = CurrencySettingAdapter(
             list,
             ::itemSwich,
             ::itemAtach
         )
-//                      addCurrensy(it)
-//            }
+        binding!!.bSetting.setOnClickListener {
+            currencyAdapter
+        }
 
         val drapAndDrop = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0
@@ -69,12 +68,9 @@ class Main2Fragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
-
         })
 
-        binding!!.bSetting.setOnClickListener {
 
-        }
 
         drapAndDrop.attachToRecyclerView(binding?.rvCurrencyS)
 
@@ -85,8 +81,8 @@ class Main2Fragment : Fragment() {
         myViewModel.nameListLiveData.observe(this.viewLifecycleOwner, Observer { it ->
             it.forEach {
 
-                if (it.nam == true) {
-              addCurrensy(it)
+                if (it.nam) {
+                    addCurrensy(it)
                 }
             }
             currencyAdapter.update(it)
@@ -99,9 +95,8 @@ class Main2Fragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun itemSwich(currency: Currency): Boolean {
+    private fun itemSwich(currency: Currency) {
         addCurrensy(currency)
-        return true
     }
 
     private fun itemAtach(currency: Currency) {

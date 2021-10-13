@@ -1,23 +1,14 @@
 package com.example.characters.screen
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.lifecycle.*
-import com.example.currency.data.Currency
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.example.currency.data.CurrencyBd
 import com.example.currency.database.CurrencyDRepository
 import com.example.currency.restApi.CurrencyRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
-import java.util.*
 
 
 @KoinApiExtension
@@ -48,9 +39,4 @@ class MainViewModel(
             }
         }.asLiveData()
 
-//    fun deleteCurrency() {
-//        viewModelScope.launch {
-//            cRepositoryBd.deleteCurrency()
-//        }
-//    }
 }

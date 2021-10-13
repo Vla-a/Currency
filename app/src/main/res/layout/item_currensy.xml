@@ -42,6 +42,4 @@
         app:layout_constraintStart_toEndOf="@+id/tv_rate"
         app:layout_constraintTop_toTopOf="@+id/tv_rate" />
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

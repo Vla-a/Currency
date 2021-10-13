@@ -25,9 +25,8 @@ class CurrencyRepository(
                     it.scale,
                     it.name,
                     it.rate,
-                nam = false
+                    nam = false
                 )
-
             }
         } as MutableList<Currency>
     }
@@ -41,8 +40,10 @@ class CurrencyRepository(
 
         currencyDao.deleteCurrency(currency.entity())
     }
+
     private fun Currency.entity() = CurrencyEntity(
-       this.id, this.numCod, this.charCode, this.scale, this.name, this.rate)
+        this.id, this.numCod, this.charCode, this.scale, this.name, this.rate
+    )
 
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun getCurrenciesListDay(day: String): MutableList<Currency> {
@@ -58,7 +59,6 @@ class CurrencyRepository(
                     it.rate,
                     nam = false
                 )
-
             }
         } as MutableList<Currency>
     }

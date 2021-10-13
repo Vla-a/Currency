@@ -5,59 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.currency.data.Currency
 import com.example.currency.data.CurrencyBd
-import com.example.currency.databinding.ItemCurrencuSetingBinding
 import com.example.currency.databinding.ItemCurrensyBinding
-import java.util.*
 
-//class CurrencyAdapter(
-//    private val characterList: MutableList<CurrencyBd> = mutableListOf(),
-//
-//    ) : RecyclerView.Adapter<CurrencyAdapter.CharacterViewHolder>() {
-//
-//
-//    override fun getItemCount(): Int {
-//        return characterList.size
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder =
-//        CharacterViewHolder(
-//            ItemCurrensyBinding.inflate(LayoutInflater.from(parent.context))
-//        )
-//
-//
-//    override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-//        holder.bind(characterList[position])
-//    }
-//
-//    fun update(newCharacterList: List<CurrencyBd>) {
-//        characterList.clear()
-//        characterList.addAll(newCharacterList)
-//        notifyDataSetChanged()
-//
-//    }
-//
-//    class CharacterViewHolder(
-//        private val bindingView: ItemCurrensyBinding,
-//
-//        ) : RecyclerView.ViewHolder(bindingView.root) {
-//
-//
-//        fun bind(item: CurrencyBd) {
-//
-//            bindingView.tvName.text = item.name
-//            bindingView.tvCharCod.text = item.charCode
-//            bindingView.tvRate.text = item.rate.toString()
-//
-//        }
-//    }
-//}
 
 class CurrencyAdapter(
 
 ) : ListAdapter<CurrencyBd, CurrencyAdapter.CurrencyViewHolder2>(DiffUtilItemCallback()) {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder2 =
         CurrencyViewHolder2(
@@ -72,7 +26,6 @@ class CurrencyAdapter(
         private val bindingView: ItemCurrensyBinding,
 
         ) : RecyclerView.ViewHolder(bindingView.root) {
-
 
         fun bind(item: CurrencyBd) {
 
@@ -97,6 +50,4 @@ class DiffUtilItemCallback : DiffUtil.ItemCallback<CurrencyBd>() {
                 && oldItem.numCod == newItem.numCod
                 && oldItem.scale == newItem.scale
     }
-
-
 }

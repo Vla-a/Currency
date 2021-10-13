@@ -3,14 +3,13 @@ package com.example.currency
 import android.app.Application
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.example.characters.database.CurrencyDatabase
-import com.example.characters.database.DatabaseConstructor
-
 import com.example.characters.restApi.CurrencyApi
 import com.example.characters.screen.MainViewModel
 import com.example.currency.database.CurrencyDRepository
+import com.example.currency.database.CurrencyDatabase
+import com.example.currency.database.DatabaseConstructor
 import com.example.currency.restApi.CurrencyRepository
-import com.example.currency.screen.Main2ViewModel
+import com.example.currency.screen.MainSettingViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -30,13 +29,13 @@ class MySuperApp : Application() {
     @RequiresApi(Build.VERSION_CODES.O)
     private val viewModels = module {
         viewModel { MainViewModel(get(), get()) }
-        viewModel { Main2ViewModel(get()) }
+        viewModel { MainSettingViewModel(get()) }
 
     }
 
     private val repositoryModule = module {  //создаем репозитории
 
-        factory { CurrencyRepository(get(),get()) }
+        factory { CurrencyRepository(get(), get()) }
         factory { CurrencyDRepository(get()) }
     }
 
