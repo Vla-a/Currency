@@ -27,9 +27,8 @@ interface CurrencyApi {
 
     @RequiresApi(Build.VERSION_CODES.O)
     @GET("https://www.nbrb.by/api/exrates/rates?&periodicity=0")
-    suspend fun getCharacterListTommorow(
-        @Query("ondate") ondate: String = LocalDate.now().plus(1, ChronoUnit.DAYS)
-            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+    suspend fun getCharacterListDay(
+        @Query("ondate") ondate: String
     ): List<CurrencyResponce>
 
     companion object {

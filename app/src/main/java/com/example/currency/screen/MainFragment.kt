@@ -1,20 +1,26 @@
-package com.example.characters.screen
+package com.example.currency.screen
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.characters.data.CurrencyAdapter
-import com.example.currency.data.Currency
+import com.example.characters.screen.MainViewModel
+import com.example.currency.R
 import com.example.currency.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -23,6 +29,7 @@ import java.util.*
 
 
 class MainFragment : Fragment() {
+
 
     private val myViewModel: MainViewModel by viewModel()
     var binding: FragmentMainBinding? = null
@@ -41,15 +48,19 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var listCharacter: MutableList<Currency> = mutableListOf()
-        val currencyAdapter = CurrencyAdapter(listCharacter)
+        val currencyAdapter = CurrencyAdapter()
+
+        if (context?.let { isOnline(it) } == false) {
+            binding?.bSetting?.visibility = View.INVISIBLE
+            Toast.makeText(context, R.string.No_currency, Toast.LENGTH_SHORT).show()
+        }
 
         binding!!.rvCurrency.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding!!.rvCurrency?.adapter = currencyAdapter
 
-        myViewModel.nameListLiveData.observe(this.viewLifecycleOwner, Observer {
-            currencyAdapter.update(it)
+        myViewModel.nameListLiveDataBd.observe(this.viewLifecycleOwner, Observer {
+            currencyAdapter.submitList(it)
         })
 
         binding!!.today.text =
@@ -57,10 +68,32 @@ class MainFragment : Fragment() {
         binding!!.tomorrow.text = LocalDate.now().plus(1, ChronoUnit.DAYS)
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
 
-        binding?.bSetting?.setOnClickListener {
-                this.findNavController().navigate(MainFragmentDirections.toMain2Fragment())
+
+        binding!!.bSetting.setOnClickListener {
+            this.findNavController().navigate(MainFragmentDirections.toMain2Fragment())
         }
     }
 
-
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (connectivityManager != null) {
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                    return true
+                }
+            }
+        }
+        return false
+    }
 }

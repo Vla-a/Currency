@@ -1,6 +1,6 @@
 package com.example.currency.data
 
-data class CurrencyTommorow(
+data class CurrencyBd(
     val id: Long,
     val numCod: String,
     val charCode: String,

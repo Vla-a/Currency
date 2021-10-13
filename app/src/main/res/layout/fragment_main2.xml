@@ -35,6 +35,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:listitem="@layout/item_currensy" />
+        tools:listitem="@layout/item_currencu_seting" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

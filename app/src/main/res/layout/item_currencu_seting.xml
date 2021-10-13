@@ -45,6 +45,12 @@
         app:layout_constraintStart_toEndOf="@+id/ASwitch"
         app:layout_constraintTop_toTopOf="@+id/ASwitch" />
 
-
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="10dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/ASwitch"
+        app:layout_constraintStart_toEndOf="@+id/tv_charCod"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

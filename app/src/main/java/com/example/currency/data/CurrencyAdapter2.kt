@@ -3,50 +3,76 @@ package com.example.currency.data
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.characters.data.CurrencyAdapter
 import com.example.currency.databinding.ItemCurrencuSetingBinding
-import com.example.currency.databinding.ItemCurrensyBinding
 
 class CurrencyAdapter2(
-    private val currencyList: MutableList<Currency> = mutableListOf(),
-
+    private val sweetList: MutableList<Currency>,
+    private val itemSwich: (Currency) -> Unit,
+    private val itemAtach: (Currency) -> Unit
     ) : RecyclerView.Adapter<CurrencyAdapter2.CurrencyViewHolder>() {
 
+    override fun getItemCount(): Int = sweetList.size
 
-    override fun getItemCount(): Int {
-        return currencyList.size
-    }
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): CurrencyAdapter2.CurrencyViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder =
         CurrencyViewHolder(
-            ItemCurrencuSetingBinding.inflate(LayoutInflater.from(parent.context))
+            ItemCurrencuSetingBinding.inflate(LayoutInflater.from(parent.context)), itemSwich, itemAtach
         )
 
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
-        holder.bind(currencyList[position])
+        holder.bind(sweetList[position])
     }
 
-    fun update(newCharacterList: List<Currency>) {
-        currencyList.clear()
-        currencyList.addAll(newCharacterList)
-        notifyDataSetChanged()
+    fun update(newSweetList: MutableList<Currency>) {
 
+        sweetList.clear()
+        sweetList.addAll(newSweetList)
+        notifyDataSetChanged()
     }
 
     class CurrencyViewHolder(
         private val bindingView: ItemCurrencuSetingBinding,
+        private val itemSwich: (Currency) -> Unit,
+        private val itemAtach: (Currency) -> Unit
 
-        ) : RecyclerView.ViewHolder(bindingView.root) {
+    ) : RecyclerView.ViewHolder(bindingView.root) {
 
         fun bind(item: Currency) {
             bindingView.tvCharCod.text = item.charCode
             bindingView.tvName.text = item.name
-            bindingView.ASwitch.isChecked
 
+            if (item.charCode == "USD") {
+                bindingView.ASwitch.isChecked = true
+            }
+            if (item.charCode == "EUR") {
+                bindingView.ASwitch.isChecked = true
+            }
+            if (item.charCode == "RUB") {
+                bindingView.ASwitch.isChecked = true
+            }
+//            itemView.setOnClickListener{
+//                itemSwich(item)
+//            }
+
+          if ( bindingView.ASwitch.isChecked == true){
+              item.nam = true
+          }
+
+
+            bindingView.ASwitch.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked){
+                    itemSwich(item)}
+
+            }
+            bindingView.noti.setOnLongClickListener {
+                itemAtach(item)
+                return@setOnLongClickListener true
+
+            }
         }
+
     }
 }
+
+
+

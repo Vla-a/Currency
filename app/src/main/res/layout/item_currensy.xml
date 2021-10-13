@@ -26,12 +26,21 @@
 
     <TextView
         android:id="@+id/tv_rate"
-        android:layout_width="200dp"
+        android:layout_width="100dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_name"
-        app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toEndOf="@+id/tv_name"
         app:layout_constraintTop_toTopOf="@+id/tv_charCod" />
+
+    <TextView
+        android:id="@+id/tv_rate1"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_rate"
+        app:layout_constraintTop_toTopOf="@+id/tv_rate" />
 
 
 
