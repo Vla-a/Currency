@@ -1,7 +1,9 @@
 package com.example.characters.screen
 
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +18,13 @@ import com.example.currency.data.Currency
 import com.example.currency.data.CurrencySettingAdapter
 import com.example.currency.databinding.FragmentMain2Binding
 import com.example.currency.screen.MainSettingViewModel
+import com.example.myhomework.homework13.sharedprefs.SharedPrefsUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class MainSettingFragment : Fragment() {
 
+    lateinit var recyclerView: RecyclerView
     private var list: MutableList<Currency> = mutableListOf()
     private val myViewModel: MainSettingViewModel by viewModel()
     private var binding: FragmentMain2Binding? = null
@@ -40,14 +44,13 @@ class MainSettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        SharedPrefsUtils.sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context?.applicationContext)
         val currencyAdapter = CurrencySettingAdapter(
             list,
-            ::itemSwich,
-            ::itemAtach
+            ::itemSwich
         )
         binding!!.bSetting.setOnClickListener {
-            currencyAdapter
+
         }
 
         val drapAndDrop = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
@@ -99,10 +102,6 @@ class MainSettingFragment : Fragment() {
         addCurrensy(currency)
     }
 
-    private fun itemAtach(currency: Currency) {
-
-
-    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun addCurrensy(currency: Currency) {
