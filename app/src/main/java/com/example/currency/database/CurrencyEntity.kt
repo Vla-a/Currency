@@ -9,5 +9,6 @@ class CurrencyEntity(
     val charCode: String,
     val scale: Int,
     val name: String,
-    val rate: Double
+    val rate: Double,
+    var nam: String
 )

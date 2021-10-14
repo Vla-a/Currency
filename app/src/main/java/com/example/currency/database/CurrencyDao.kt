@@ -11,11 +11,9 @@ interface CurrencyDao {
     @Query("SELECT * FROM character_table")
     fun getCharacterList(): Flow<List<CurrencyEntity>>
 
-    @Query("SELECT * FROM character_table WHERE name LIKE :name ORDER BY id")
-    suspend fun getNameList(name: String): List<CurrencyEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addCyrrency(currency: CurrencyEntity)
+    suspend fun addCyrrency(currency: List<CurrencyEntity>)
 
     @Delete
     suspend fun deleteCurrency(currency: CurrencyEntity)

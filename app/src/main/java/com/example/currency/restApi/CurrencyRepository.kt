@@ -25,16 +25,35 @@ class CurrencyRepository(
                     it.scale,
                     it.name,
                     it.rate,
-                    nam = false
+                    nam =  ist( it.charCode)
                 )
             }
         } as MutableList<Currency>
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun addCurrency(currency: CurrencyEntity) {
-        currencyDao.addCyrrency(currency)
+    private fun ist(charCof: String): Boolean{
+
+        if (charCof == "EUR" || charCof == "RUB" || charCof == "USD") return true
+        return false
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun addCurrency(currencyList: MutableList<Currency>) {
+
+                currencyDao.addCyrrency(currencyList.map {
+                    CurrencyEntity(
+                        it.id,
+                        it.numCod,
+                        it.charCode,
+                        it.scale,
+                        it.name,
+                        it.rate,
+                        it.nam.toString()
+                    )
+                })
+
+    }
+
 
     suspend fun deleteCurrency(currency: Currency) {
 
@@ -42,7 +61,7 @@ class CurrencyRepository(
     }
 
     private fun Currency.entity() = CurrencyEntity(
-        this.id, this.numCod, this.charCode, this.scale, this.name, this.rate
+        this.id, this.numCod, this.charCode, this.scale, this.name, this.rate, this.nam.toString()
     )
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -57,7 +76,7 @@ class CurrencyRepository(
                     it.scale,
                     it.name,
                     it.rate,
-                    nam = false
+                    nam =  ist( it.charCode)
                 )
             }
         } as MutableList<Currency>

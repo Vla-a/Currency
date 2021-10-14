@@ -18,7 +18,8 @@ class CurrencyDRepository(
                     currencyEntity.charCode,
                     currencyEntity.scale,
                     currencyEntity.name,
-                    currencyEntity.rate
+                    currencyEntity.rate,
+                    currencyEntity.nam
                 )
             }
 

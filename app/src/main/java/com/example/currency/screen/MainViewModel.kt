@@ -34,9 +34,10 @@ class MainViewModel(
                     currencyEntity.charCode,
                     currencyEntity.scale,
                     currencyEntity.name,
-                    currencyEntity.rate
+                    currencyEntity.rate,
+                    currencyEntity.nam
                 )
             }
         }.asLiveData()
-
 }
+

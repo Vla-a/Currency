@@ -1,31 +1,36 @@
 package com.example.currency.data
 
-import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
+import androidx.core.view.MotionEventCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currency.databinding.ItemCurrencuSetingBinding
 import com.example.currency.sharedprefs.SharedPrefsKeys
 import com.example.myhomework.homework13.sharedprefs.SharedPrefsUtils
+import java.util.*
 
 class CurrencySettingAdapter(
-    private val sweetList: MutableList<Currency>,
-    private val itemAtach: (Currency) -> Unit
+     val currencyList: MutableList<Currency>
+
 ) : RecyclerView.Adapter<CurrencySettingAdapter.CurrencyViewHolder>() {
 
-    lateinit var sharedPreferences: SharedPreferences
+    companion object {
+        private const val ITEM = 0
+    }
 
-    override fun getItemCount(): Int = sweetList.size
+    override fun getItemCount(): Int = currencyList.size
+
+    override fun getItemViewType(position: Int) = ITEM
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder =
         CurrencyViewHolder(
-            ItemCurrencuSetingBinding.inflate(LayoutInflater.from(parent.context)),
-            itemAtach
+            ItemCurrencuSetingBinding.inflate(LayoutInflater.from(parent.context))
         )
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
-        holder.bind(sweetList[position])
+        holder.bind(currencyList[position])
 
 //   sharedPreferences.edit().putInt(sweetList[position].charCode, position)
 //
@@ -36,52 +41,46 @@ class CurrencySettingAdapter(
 
 
     fun update(newSweetList: MutableList<Currency>) {
-        sweetList.clear()
-        sweetList.addAll(newSweetList)
+        currencyList.clear()
+        currencyList.addAll(newSweetList)
         notifyDataSetChanged()
     }
 
-    class CurrencyViewHolder(
-        val bindingView: ItemCurrencuSetingBinding,
-        private val itemAtach: (Currency) -> Unit
+    fun addAll(newCurrenciesSettings: List<Currency>) {
+        currencyList.addAll(newCurrenciesSettings)
+        notifyDataSetChanged()
+    }
+
+    fun onItemMove(sourcePosition: Int, targetPosition: Int) {
+        Collections.swap(currencyList, sourcePosition, targetPosition)
+        notifyItemMoved(sourcePosition, targetPosition)
+    }
+
+
+    inner class CurrencyViewHolder(
+        val bindingView: ItemCurrencuSetingBinding
+
     ) : RecyclerView.ViewHolder(bindingView.root) {
+
+        init {
+            bindingView.ASwitch.setOnCheckedChangeListener { _, isChecked ->
+                currencyList[adapterPosition].nam = isChecked
+           }
+        }
 
         fun bind(item: Currency) {
             bindingView.tvCharCod.text = item.charCode
             bindingView.tvName.text = item.name
-
-            if (item.charCode == "USD") {
-                bindingView.ASwitch.isChecked = true
-            }
-            if (item.charCode == "EUR") {
-                bindingView.ASwitch.isChecked = true
-            }
-            if (item.charCode == "RUB") {
-                bindingView.ASwitch.isChecked = true
-            }
-
-//           if( SharedPrefsUtils.getBoolen(SharedPrefsKeys.PREFS_KEY) == null){
-//               bindingView.ASwitch.isChecked = true
-//           }else{
-//               bindingView.ASwitch.isChecked = false
-//           }
-
-            bindingView.ASwitch.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                   SharedPrefsUtils.putBoolen(SharedPrefsKeys.PREFS_KEY,  true)
-                } else {
-                    SharedPrefsUtils.putBoolen(SharedPrefsKeys.PREFS_KEY,  false)
-
-                }
-            }
-            bindingView.noti.setOnLongClickListener {
-                itemAtach(item)
-                return@setOnLongClickListener true
-
-            }
-
+            bindingView.ASwitch.isChecked = item.nam
+//
+//            bindingView.ASwitch.setOnCheckedChangeListener { _, isChecked ->
+//                if (isChecked) {
+//                    SharedPrefsUtils.putBoolen(SharedPrefsKeys.PREFS_KEY, true)
+//                } else {
+//                    SharedPrefsUtils.putBoolen(SharedPrefsKeys.PREFS_KEY, false)
+//
+//                }
+//            }
         }
     }
 }
-
-

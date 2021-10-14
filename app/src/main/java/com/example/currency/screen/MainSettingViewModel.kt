@@ -37,31 +37,25 @@ class MainSettingViewModel(
             // Log.e("KEK", cRepository.getCurrenciesListTommorow().toString())
         }
     }
+//
+//    fun getList() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            nameListLiveData.postValue(cRepository.getCurrenciesList())
+//
+//        }
+//    }
+//
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    fun getListDay(day: String) {
+//    }
 
-    fun getList() {
-        viewModelScope.launch(Dispatchers.IO) {
-            nameListLiveData.postValue(cRepository.getCurrenciesList())
-            // Log.e("KEK", cRepository.getCurrenciesListTommorow().toString())
-        }
-    }
+    fun addCurency(currencyList: MutableList<Currency>) {
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getListDay(day: String) {
-    }
-
-    fun addCurrency(currency: Currency) {
-        val newCurrency = CurrencyEntity(
-            currency.id,
-            currency.numCod,
-            currency.charCode,
-            currency.scale,
-            currency.name,
-            currency.rate
-        )
         viewModelScope.launch {
-            cRepository.addCurrency(newCurrency)
+            cRepository.addCurrency(currencyList)
         }
     }
+
 
     fun deleteCurrenty(currency: Currency) {
         viewModelScope.launch {
