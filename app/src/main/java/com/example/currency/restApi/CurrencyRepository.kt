@@ -36,10 +36,7 @@ class CurrencyRepository(
         if (charCof == "EUR" || charCof == "RUB" || charCof == "USD") return true
         return false
     }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     suspend fun addCurrency(currencyList: MutableList<Currency>) {
-
                 currencyDao.addCyrrency(currencyList.map {
                     CurrencyEntity(
                         it.id,
@@ -54,15 +51,22 @@ class CurrencyRepository(
 
     }
 
+//
+//    suspend fun deleteCurrency(currencyList: MutableList<Currency>) {
+//
+//        currencyDao.deleteCurrency(currencyList.map {
+//            CurrencyEntity(
+//                it.id,
+//                it.numCod,
+//                it.charCode,
+//                it.scale,
+//                it.name,
+//                it.rate,
+//                it.nam.toString()
+//            )
+//        })
+//    }
 
-    suspend fun deleteCurrency(currency: Currency) {
-
-        currencyDao.deleteCurrency(currency.entity())
-    }
-
-    private fun Currency.entity() = CurrencyEntity(
-        this.id, this.numCod, this.charCode, this.scale, this.name, this.rate, this.nam.toString()
-    )
 
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun getCurrenciesListDay(day: String): MutableList<Currency> {

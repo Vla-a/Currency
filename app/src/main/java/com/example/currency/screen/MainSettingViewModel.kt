@@ -37,17 +37,6 @@ class MainSettingViewModel(
             // Log.e("KEK", cRepository.getCurrenciesListTommorow().toString())
         }
     }
-//
-//    fun getList() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            nameListLiveData.postValue(cRepository.getCurrenciesList())
-//
-//        }
-//    }
-//
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    fun getListDay(day: String) {
-//    }
 
     fun addCurency(currencyList: MutableList<Currency>) {
 
@@ -56,11 +45,10 @@ class MainSettingViewModel(
         }
     }
 
-
-    fun deleteCurrenty(currency: Currency) {
-        viewModelScope.launch {
-            cRepository.deleteCurrency(currency)
-        }
-    }
+//    fun deleteCurrenty(currencyList: MutableList<Currency>) {
+//        viewModelScope.launch {
+//            cRepository.deleteCurrency(currencyList)
+//        }
+//    }
 }
 

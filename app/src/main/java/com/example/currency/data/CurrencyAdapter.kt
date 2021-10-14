@@ -10,12 +10,12 @@ import com.example.currency.databinding.ItemCurrensyBinding
 
 
 class CurrencyAdapter(
-
+    private val delate: (CurrencyBd) -> Unit
 ) : ListAdapter<CurrencyBd, CurrencyAdapter.CurrencyViewHolder2>(DiffUtilItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder2 =
         CurrencyViewHolder2(
-            ItemCurrensyBinding.inflate(LayoutInflater.from(parent.context))
+            ItemCurrensyBinding.inflate(LayoutInflater.from(parent.context)), delate
         )
 
     override fun onBindViewHolder(holder: CurrencyViewHolder2, position: Int) {
@@ -24,8 +24,8 @@ class CurrencyAdapter(
 
     class CurrencyViewHolder2(
         private val bindingView: ItemCurrensyBinding,
-
-        ) : RecyclerView.ViewHolder(bindingView.root) {
+        private val delate: (CurrencyBd) -> Unit
+    ) : RecyclerView.ViewHolder(bindingView.root) {
 
         fun bind(item: CurrencyBd) {
 
@@ -33,6 +33,11 @@ class CurrencyAdapter(
             bindingView.tvCharCod.text = item.charCode
             bindingView.tvRate.text = item.rate.toString()
             bindingView.tvRate1.text = item.rate.toString()
+
+            itemView.setOnLongClickListener() {
+                delate(item)
+                true
+            }
         }
     }
 }

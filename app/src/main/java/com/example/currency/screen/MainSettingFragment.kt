@@ -23,7 +23,7 @@ import java.util.*
 
 class MainSettingFragment : Fragment() {
 
-
+    var listDelete = mutableListOf<Currency>()
     private var list: MutableList<Currency> = mutableListOf()
     private val myViewModel: MainSettingViewModel by viewModel()
     private var binding: FragmentMain2Binding? = null
@@ -80,7 +80,8 @@ class MainSettingFragment : Fragment() {
 
         binding!!.bSetting.setOnClickListener {
 
-            var listR = mutableListOf<Currency>()
+            val listR = mutableListOf<Currency>()
+             listDelete = listR
 
             itt.forEach {
                 if (it.nam)listR.add(it)            }
@@ -91,9 +92,9 @@ class MainSettingFragment : Fragment() {
         })
         binding!!.toolbar.setOnClickListener {
             it.findNavController().popBackStack()
+
         }
     }
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun addCurrensy(currency: MutableList<Currency>) {

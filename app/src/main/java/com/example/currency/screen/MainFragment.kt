@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.characters.data.CurrencyAdapter
 import com.example.characters.screen.MainViewModel
 import com.example.currency.R
+import com.example.currency.data.CurrencyBd
 import com.example.currency.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -48,7 +49,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val currencyAdapter = CurrencyAdapter()
+        val currencyAdapter = CurrencyAdapter(){
+            delateCurrency(it)
+        }
 
         if (context?.let { isOnline(it) } == false) {
             binding?.bSetting?.visibility = View.INVISIBLE
@@ -72,6 +75,10 @@ class MainFragment : Fragment() {
         binding!!.bSetting.setOnClickListener {
             this.findNavController().navigate(MainFragmentDirections.toMain2Fragment())
         }
+    }
+
+    private fun delateCurrency(currencyBd: CurrencyBd){
+        myViewModel.delateCurrency(currencyBd)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
