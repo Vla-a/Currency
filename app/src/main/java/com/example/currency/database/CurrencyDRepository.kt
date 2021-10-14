@@ -9,8 +9,6 @@ class CurrencyDRepository(
     private val currencyDao: CurrencyDao
 ) {
 
-
-
     fun getCurrencyList(nam: String): Flow<List<CurrencyBd>> =
         currencyDao.getCurrencyList(nam).map {
             it.map { currencyEntity ->
@@ -30,7 +28,6 @@ class CurrencyDRepository(
     suspend fun deleteCurrencu(currencyBd: CurrencyBd) {
         currencyDao.deleteCurrency(currencyBd.entity())
     }
-
 
     fun CurrencyBd.entity() = CurrencyEntity(
         this.id, this.numCod, this.charCode, this.scale, this.name, this.rate, this.nam

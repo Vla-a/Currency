@@ -24,8 +24,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class MainSettingFragment : Fragment() {
-  
-    var listDelete = listOf<Currency>()
+
     private var list: MutableList<Currency> = mutableListOf()
     private val myViewModel: MainSettingViewModel by viewModel()
     private var binding: FragmentMain2Binding? = null
@@ -68,7 +67,6 @@ class MainSettingFragment : Fragment() {
         })
 
 
-
         drapAndDrop.attachToRecyclerView(binding?.rvCurrencyS)
 
         binding!!.rvCurrencyS.layoutManager =
@@ -81,7 +79,6 @@ class MainSettingFragment : Fragment() {
 
             binding!!.bSetting.setOnClickListener {
                 val listR = mutableListOf<Currency>()
-                listDelete = listR
 
                 list.forEach {
                   listR.add(it)
@@ -93,7 +90,6 @@ class MainSettingFragment : Fragment() {
         })
         binding!!.toolbar.setOnClickListener {
             it.findNavController().popBackStack()
-
         }
     }
 

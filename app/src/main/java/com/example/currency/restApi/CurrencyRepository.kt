@@ -64,7 +64,7 @@ class CurrencyRepository(
                 it.scale,
                 it.name,
                 it.rate,
-                it.nam.toString()
+                it.nam
             )
         })
 

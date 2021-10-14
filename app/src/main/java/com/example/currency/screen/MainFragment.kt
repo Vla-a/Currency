@@ -58,18 +58,16 @@ class MainFragment : Fragment() {
             Toast.makeText(context, R.string.No_currency, Toast.LENGTH_SHORT).show()
         }
 
+        binding!!.bSetting.setOnClickListener {
+            this.findNavController().navigate(MainFragmentDirections.toMain2Fragment())
+        }
+
         binding!!.rvCurrency.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding!!.rvCurrency?.adapter = currencyAdapter
 
         myViewModel.nameListLiveDataBd.observe(this.viewLifecycleOwner, Observer {list ->
             currencyAdapter.submitList(list)
-            binding!!.bSetting.setOnClickListener {
-                this.findNavController().navigate(MainFragmentDirections.toMain2Fragment())
-//                list.forEach {
-//                   delateCurrency(it)
-//                }
-            }
         })
 
         binding!!.toolbar.setOnClickListener {
@@ -79,8 +77,6 @@ class MainFragment : Fragment() {
             SimpleDateFormat("dd.MM.yyyy", Locale.ROOT).format(System.currentTimeMillis())
         binding!!.tomorrow.text = LocalDate.now().plus(1, ChronoUnit.DAYS)
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-
-
 
     }
 
