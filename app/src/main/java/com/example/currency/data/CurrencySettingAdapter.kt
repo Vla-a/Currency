@@ -43,14 +43,15 @@ class CurrencySettingAdapter(
 
         init {
             bindingView.ASwitch.setOnCheckedChangeListener { _, isChecked ->
-                currencyList[adapterPosition].nam = isChecked
+                currencyList[adapterPosition].nam = isChecked.toString()
             }
         }
 
         fun bind(item: Currency) {
             bindingView.tvCharCod.text = item.charCode
             bindingView.tvName.text = item.name
-            bindingView.ASwitch.isChecked = item.nam
+
+            bindingView.ASwitch.isChecked = item.nam == "true"
 
         }
     }

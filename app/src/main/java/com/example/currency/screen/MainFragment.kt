@@ -66,9 +66,9 @@ class MainFragment : Fragment() {
             currencyAdapter.submitList(list)
             binding!!.bSetting.setOnClickListener {
                 this.findNavController().navigate(MainFragmentDirections.toMain2Fragment())
-                list.forEach {
-                   delateCurrency(it)
-                }
+//                list.forEach {
+//                   delateCurrency(it)
+//                }
             }
         })
 

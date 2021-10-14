@@ -8,6 +8,6 @@ data class Currency(
     val scale: Int,
     val name: String,
     val rate: Double,
-    var nam: Boolean
+    var nam: String
 )
 

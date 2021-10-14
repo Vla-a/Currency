@@ -25,7 +25,7 @@ import java.util.*
 
 class MainSettingFragment : Fragment() {
   
-    var listDelete = mutableListOf<Currency>()
+    var listDelete = listOf<Currency>()
     private var list: MutableList<Currency> = mutableListOf()
     private val myViewModel: MainSettingViewModel by viewModel()
     private var binding: FragmentMain2Binding? = null
@@ -75,16 +75,16 @@ class MainSettingFragment : Fragment() {
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding!!.rvCurrencyS?.adapter = currencyAdapter
 
-        myViewModel.nameListLiveData.observe(this.viewLifecycleOwner, Observer { list ->
+        myViewModel.listLiveData.observe(this.viewLifecycleOwner, Observer { list ->
 
-            currencyAdapter.update(list)
+            currencyAdapter.update(list as MutableList<Currency>)
 
             binding!!.bSetting.setOnClickListener {
                 val listR = mutableListOf<Currency>()
                 listDelete = listR
 
                 list.forEach {
-                    if (it.nam) listR.add(it)
+                  listR.add(it)
                 }
 
                 addCurrensy(listR)

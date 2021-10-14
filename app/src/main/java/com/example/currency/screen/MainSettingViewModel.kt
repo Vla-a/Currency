@@ -3,12 +3,11 @@ package com.example.currency.screen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.currency.data.Currency
 import com.example.currency.restApi.CurrencyRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -28,6 +27,22 @@ class MainSettingViewModel(
     val toDay = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(System.currentTimeMillis())
     val nameListLiveData: MutableLiveData<MutableList<Currency>> = MutableLiveData()
     val nameListLiveData2: MutableLiveData<MutableList<Currency>> = MutableLiveData()
+
+    val listLiveData: LiveData<List<Currency>> =
+        cRepository.getList() .map {
+            it.map { currencyEntity ->
+
+                Currency(
+                    currencyEntity.id,
+                    currencyEntity.numCod,
+                    currencyEntity.charCode,
+                    currencyEntity.scale,
+                    currencyEntity.name,
+                    currencyEntity.rate,
+                    currencyEntity.nam
+                )
+            }
+        }.asLiveData()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

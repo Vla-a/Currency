@@ -9,10 +9,13 @@ import kotlinx.coroutines.flow.Flow
 interface CurrencyDao {
 
     @Query("SELECT * FROM character_table")
-    fun getCharacterList(): Flow<List<CurrencyEntity>>
+    fun getCharacterList(): Flow<MutableList<CurrencyEntity>>
+
+    @Query("SELECT * FROM character_table WHERE nam LIKE :nam ORDER BY id")
+    fun getCurrencyList(nam: String): Flow<List<CurrencyEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addCyrrency(currency: List<CurrencyEntity>)
+    suspend fun addCyrrency(currency:List<CurrencyEntity>)
 
     @Delete
     suspend fun deleteCurrency(currency: CurrencyEntity)

@@ -5,9 +5,10 @@ import androidx.annotation.RequiresApi
 import com.example.characters.database.CurrencyEntity
 import com.example.characters.restApi.CurrencyApi
 import com.example.currency.data.Currency
-import com.example.currency.data.CurrencyBd
 import com.example.currency.database.CurrencyDao
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class CurrencyRepository(
@@ -15,11 +16,27 @@ class CurrencyRepository(
     private val currencyApi: CurrencyApi
 ) {
 
-    suspend fun getCurrenciesList(): MutableList<Currency> {
+    fun getList(): Flow<List<Currency>> =
+        currencyDao.getCharacterList().map {
+            it.map { currencyEntity ->
 
-        return withContext(Dispatchers.IO) {
-            currencyApi.getCharacterList().map {
                 Currency(
+                    currencyEntity.id,
+                    currencyEntity.numCod,
+                    currencyEntity.charCode,
+                    currencyEntity.scale,
+                    currencyEntity.name,
+                    currencyEntity.rate,
+                    currencyEntity.nam
+                )
+            }
+        }
+
+    suspend fun addCurrencyBD(){
+
+        currencyDao.addCyrrency(withContext(Dispatchers.IO) {
+            currencyApi.getCharacterList().map {
+                CurrencyEntity(
                     it.id,
                     it.numCod,
                     it.charCode,
@@ -29,13 +46,13 @@ class CurrencyRepository(
                     nam = ist(it.charCode)
                 )
             }
-        } as MutableList<Currency>
-    }
+        } as MutableList<CurrencyEntity>
+        )}
 
-    private fun ist(charCof: String): Boolean {
+    private fun ist(charCof: String): String {
 
-        if (charCof == "EUR" || charCof == "RUB" || charCof == "USD") return true
-        return false
+        if (charCof == "EUR" || charCof == "RUB" || charCof == "USD") return "true"
+        return "false"
     }
 
     suspend fun addCurrency(currencyList: MutableList<Currency>) {
@@ -87,4 +104,6 @@ class CurrencyRepository(
             }
         } as MutableList<Currency>
     }
+
+
 }

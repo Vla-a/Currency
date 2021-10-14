@@ -20,7 +20,7 @@ class MainViewModel(
 ) : ViewModel(), KoinComponent {
 
     val nameListLiveDataBd: LiveData<List<CurrencyBd>> =
-        cRepositoryBd.getList().map {
+        cRepositoryBd.getCurrencyList(nam = "true").map {
             it.map { currencyEntity ->
 
                 CurrencyBd(
@@ -35,10 +35,17 @@ class MainViewModel(
             }
         }.asLiveData()
 
+init {
+    viewModelScope.launch {
+        cRepository.addCurrencyBD()
+    }
+}
+
     fun delateCurrency(currencyBd: CurrencyBd) {
         viewModelScope.launch {
             cRepositoryBd.deleteCurrencu(currencyBd)
         }
     }
+
 }
 
