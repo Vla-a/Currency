@@ -72,6 +72,9 @@ class MainFragment : Fragment() {
             }
         })
 
+        binding!!.toolbar.setOnClickListener {
+            activity?.finish()
+        }
         binding!!.today.text =
             SimpleDateFormat("dd.MM.yyyy", Locale.ROOT).format(System.currentTimeMillis())
         binding!!.tomorrow.text = LocalDate.now().plus(1, ChronoUnit.DAYS)

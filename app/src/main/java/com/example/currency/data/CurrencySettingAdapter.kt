@@ -1,5 +1,7 @@
 package com.example.currency.data
 
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -18,10 +20,11 @@ class CurrencySettingAdapter(
 
     override fun getItemViewType(position: Int) = ITEM
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder =
-        CurrencyViewHolder(
-            ItemCurrencuSetingBinding.inflate(LayoutInflater.from(parent.context))
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder{
+
+     return   CurrencyViewHolder(
+            ItemCurrencuSetingBinding.inflate(LayoutInflater.from(parent.context)))
+}
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
         holder.bind(currencyList[position])

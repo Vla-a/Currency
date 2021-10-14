@@ -1,7 +1,9 @@
 package com.example.characters.screen
 
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +24,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class MainSettingFragment : Fragment() {
-
+  
     var listDelete = mutableListOf<Currency>()
     private var list: MutableList<Currency> = mutableListOf()
     private val myViewModel: MainSettingViewModel by viewModel()
