@@ -23,13 +23,13 @@ class CurrencyDRepository(
                     currencyEntity.nam
                 )
             }
-
         }
-    suspend fun deleteCurrencu(currencyBd: CurrencyBd){
+
+    suspend fun deleteCurrencu(currencyBd: CurrencyBd) {
         currencyDao.deleteCurrency(currencyBd.entity())
     }
 }
 
-fun CurrencyBd.entity() = CurrencyEntity(
-    this.id, this.numCod, this.charCode, this.scale, this.name,this.rate,this.nam
+    fun CurrencyBd.entity() = CurrencyEntity(
+    this.id, this.numCod, this.charCode, this.scale, this.name, this.rate, this.nam
 )

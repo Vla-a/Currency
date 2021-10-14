@@ -35,7 +35,7 @@ class MainViewModel(
             }
         }.asLiveData()
 
-    fun delateCurrency(currencyBd: CurrencyBd){
+    fun delateCurrency(currencyBd: CurrencyBd) {
         viewModelScope.launch {
             cRepositoryBd.deleteCurrencu(currencyBd)
         }

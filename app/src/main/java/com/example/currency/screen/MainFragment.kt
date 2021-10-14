@@ -49,7 +49,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val currencyAdapter = CurrencyAdapter(){
+        val currencyAdapter = CurrencyAdapter() {
             delateCurrency(it)
         }
 
@@ -77,7 +77,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun delateCurrency(currencyBd: CurrencyBd){
+    private fun delateCurrency(currencyBd: CurrencyBd) {
         myViewModel.delateCurrency(currencyBd)
     }
 

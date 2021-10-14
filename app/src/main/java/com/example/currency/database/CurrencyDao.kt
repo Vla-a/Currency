@@ -11,7 +11,6 @@ interface CurrencyDao {
     @Query("SELECT * FROM character_table")
     fun getCharacterList(): Flow<List<CurrencyEntity>>
 
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCyrrency(currency: List<CurrencyEntity>)
 

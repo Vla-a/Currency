@@ -6,7 +6,6 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.characters.database.CurrencyEntity
 import com.example.currency.data.Currency
 import com.example.currency.restApi.CurrencyRepository
 import kotlinx.coroutines.Dispatchers

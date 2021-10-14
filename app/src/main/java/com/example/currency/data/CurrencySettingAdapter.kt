@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.currency.databinding.ItemCurrencuSetingBinding
 
 class CurrencySettingAdapter(
-     val currencyList: MutableList<Currency>
+    val currencyList: MutableList<Currency>
 
 ) : RecyclerView.Adapter<CurrencySettingAdapter.CurrencyViewHolder>() {
 
@@ -41,7 +41,7 @@ class CurrencySettingAdapter(
         init {
             bindingView.ASwitch.setOnCheckedChangeListener { _, isChecked ->
                 currencyList[adapterPosition].nam = isChecked
-           }
+            }
         }
 
         fun bind(item: Currency) {

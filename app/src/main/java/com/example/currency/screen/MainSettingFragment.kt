@@ -77,18 +77,17 @@ class MainSettingFragment : Fragment() {
 
             currencyAdapter.update(itt)
 
+            binding!!.bSetting.setOnClickListener {
+                val listR = mutableListOf<Currency>()
+                listDelete = listR
 
-        binding!!.bSetting.setOnClickListener {
+                itt.forEach {
+                    if (it.nam) listR.add(it)
+                }
 
-            val listR = mutableListOf<Currency>()
-             listDelete = listR
-
-            itt.forEach {
-                if (it.nam)listR.add(it)            }
-
-           addCurrensy(listR)
-            it.findNavController().popBackStack()
-        }
+                addCurrensy(listR)
+                it.findNavController().popBackStack()
+            }
         })
         binding!!.toolbar.setOnClickListener {
             it.findNavController().popBackStack()

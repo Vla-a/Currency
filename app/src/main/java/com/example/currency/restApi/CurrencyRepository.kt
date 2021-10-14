@@ -25,29 +25,30 @@ class CurrencyRepository(
                     it.scale,
                     it.name,
                     it.rate,
-                    nam =  ist( it.charCode)
+                    nam = ist(it.charCode)
                 )
             }
         } as MutableList<Currency>
     }
 
-    private fun ist(charCof: String): Boolean{
+    private fun ist(charCof: String): Boolean {
 
         if (charCof == "EUR" || charCof == "RUB" || charCof == "USD") return true
         return false
     }
+
     suspend fun addCurrency(currencyList: MutableList<Currency>) {
-                currencyDao.addCyrrency(currencyList.map {
-                    CurrencyEntity(
-                        it.id,
-                        it.numCod,
-                        it.charCode,
-                        it.scale,
-                        it.name,
-                        it.rate,
-                        it.nam.toString()
-                    )
-                })
+        currencyDao.addCyrrency(currencyList.map {
+            CurrencyEntity(
+                it.id,
+                it.numCod,
+                it.charCode,
+                it.scale,
+                it.name,
+                it.rate,
+                it.nam.toString()
+            )
+        })
 
     }
 
@@ -80,7 +81,7 @@ class CurrencyRepository(
                     it.scale,
                     it.name,
                     it.rate,
-                    nam =  ist( it.charCode)
+                    nam = ist(it.charCode)
                 )
             }
         } as MutableList<Currency>
