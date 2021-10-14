@@ -62,8 +62,14 @@ class MainFragment : Fragment() {
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding!!.rvCurrency?.adapter = currencyAdapter
 
-        myViewModel.nameListLiveDataBd.observe(this.viewLifecycleOwner, Observer {
-            currencyAdapter.submitList(it)
+        myViewModel.nameListLiveDataBd.observe(this.viewLifecycleOwner, Observer {list ->
+            currencyAdapter.submitList(list)
+            binding!!.bSetting.setOnClickListener {
+                this.findNavController().navigate(MainFragmentDirections.toMain2Fragment())
+                list.forEach {
+                   delateCurrency(it)
+                }
+            }
         })
 
         binding!!.today.text =
@@ -72,9 +78,7 @@ class MainFragment : Fragment() {
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
 
 
-        binding!!.bSetting.setOnClickListener {
-            this.findNavController().navigate(MainFragmentDirections.toMain2Fragment())
-        }
+
     }
 
     private fun delateCurrency(currencyBd: CurrencyBd) {

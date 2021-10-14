@@ -28,8 +28,9 @@ class CurrencyDRepository(
     suspend fun deleteCurrencu(currencyBd: CurrencyBd) {
         currencyDao.deleteCurrency(currencyBd.entity())
     }
-}
+
 
     fun CurrencyBd.entity() = CurrencyEntity(
-    this.id, this.numCod, this.charCode, this.scale, this.name, this.rate, this.nam
-)
+        this.id, this.numCod, this.charCode, this.scale, this.name, this.rate, this.nam
+    )
+}

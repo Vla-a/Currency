@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import com.example.characters.database.CurrencyEntity
 import com.example.characters.restApi.CurrencyApi
 import com.example.currency.data.Currency
+import com.example.currency.data.CurrencyBd
 import com.example.currency.database.CurrencyDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
