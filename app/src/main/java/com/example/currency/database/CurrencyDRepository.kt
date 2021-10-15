@@ -9,8 +9,8 @@ class CurrencyDRepository(
     private val currencyDao: CurrencyDao
 ) {
 
-    fun getCurrencyList(nam: String): Flow<List<CurrencyBd>> =
-        currencyDao.getCurrencyList(nam).map {
+    fun getCurrencyList(): Flow<List<CurrencyBd>> =
+        currencyDao.getCharacterList().map {
             it.map { currencyEntity ->
 
                 CurrencyBd(

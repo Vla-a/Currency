@@ -32,22 +32,22 @@ class CurrencyRepository(
             }
         }
 
-    suspend fun addCurrencyBD(){
-
-        currencyDao.addCyrrency(withContext(Dispatchers.IO) {
-            currencyApi.getCharacterList().map {
-                CurrencyEntity(
-                    it.id,
-                    it.numCod,
-                    it.charCode,
-                    it.scale,
-                    it.name,
-                    it.rate,
-                    nam = ist(it.charCode)
-                )
-            }
-        } as MutableList<CurrencyEntity>
-        )}
+//    suspend fun addCurrencyBD(){
+//
+//        currencyDao.addCyrrency(withContext(Dispatchers.IO) {
+//            currencyApi.getCharacterList().map {
+//                CurrencyEntity(
+//                    it.id,
+//                    it.numCod,
+//                    it.charCode,
+//                    it.scale,
+//                    it.name,
+//                    it.rate,
+//                    nam = ist(it.charCode)
+//                )
+//            }
+//        } as MutableList<CurrencyEntity>
+//        )}
 
     private fun ist(charCof: String): String {
 

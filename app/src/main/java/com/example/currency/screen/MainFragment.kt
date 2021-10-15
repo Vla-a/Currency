@@ -58,9 +58,7 @@ class MainFragment : Fragment() {
             Toast.makeText(context, R.string.No_currency, Toast.LENGTH_SHORT).show()
         }
 
-        binding!!.bSetting.setOnClickListener {
-            this.findNavController().navigate(MainFragmentDirections.toMain2Fragment())
-        }
+
 
         binding!!.rvCurrency.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -68,6 +66,10 @@ class MainFragment : Fragment() {
 
         myViewModel.nameListLiveDataBd.observe(this.viewLifecycleOwner, Observer {list ->
             currencyAdapter.submitList(list)
+            binding!!.bSetting.setOnClickListener {
+                this.findNavController().navigate(MainFragmentDirections.toMain2Fragment())
+           list.forEach { myViewModel.delateCurrency(it) }
+            }
         })
 
         binding!!.toolbar.setOnClickListener {

@@ -14,10 +14,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.currency.R
 import com.example.currency.data.Currency
 import com.example.currency.data.CurrencySettingAdapter
 import com.example.currency.databinding.FragmentMain2Binding
 import com.example.currency.screen.MainSettingViewModel
+import com.example.myhomework.homework13.sharedprefs.SharedPrefsUtilss
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,7 +45,7 @@ class MainSettingFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+       SharedPrefsUtilss.sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
 
         val currencyAdapter = CurrencySettingAdapter(list)
 
@@ -73,7 +76,7 @@ class MainSettingFragment : Fragment() {
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding!!.rvCurrencyS?.adapter = currencyAdapter
 
-        myViewModel.listLiveData.observe(this.viewLifecycleOwner, Observer { list ->
+        myViewModel.nameListLiveDataYeasDay.observe(this.viewLifecycleOwner, Observer { list ->
 
             currencyAdapter.update(list as MutableList<Currency>)
 
@@ -81,9 +84,8 @@ class MainSettingFragment : Fragment() {
                 val listR = mutableListOf<Currency>()
 
                 list.forEach {
-                  listR.add(it)
+                    if(it.nam == "true") listR.add(it)
                 }
-
                 addCurrensy(listR)
                 it.findNavController().popBackStack()
             }
