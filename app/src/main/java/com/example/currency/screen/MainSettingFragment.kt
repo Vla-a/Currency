@@ -76,6 +76,8 @@ class MainSettingFragment : Fragment() {
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding!!.rvCurrencyS?.adapter = currencyAdapter
 
+
+
         myViewModel.nameListLiveDataYeasDay.observe(this.viewLifecycleOwner, Observer { list ->
 
             currencyAdapter.update(list as MutableList<Currency>)

@@ -32,9 +32,9 @@ class CurrencySettingAdapter(
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
         holder.bind(currencyList[position])
-        SharedPrefsUtilss.sharedPrefs.edit().putInt(currencyList[position].charCode.toString(), position)
+        SharedPrefsUtilss.sharedPrefs.edit().putInt(currencyList[position].charCode, position)
 
-        if(SharedPrefsUtilss.sharedPrefs.getBoolean(currencyList[position].charCode.toString(), false)) {
+        if(SharedPrefsUtilss.sharedPrefs.getBoolean(currencyList[position].charCode, false)) {
             holder.bindingView.ASwitch.isChecked = true
         }
     }
