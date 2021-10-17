@@ -10,5 +10,6 @@ class CurrencyEntity(
     val scale: Int,
     val name: String,
     val rate: Double,
-    var nam: String
+    var nam: String,
+    val rateNewDay: Double
 )

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currency.R
 import com.example.currency.data.Currency
+import com.example.currency.data.CurrencyResult
 import com.example.currency.data.CurrencySettingAdapter
 import com.example.currency.databinding.FragmentMain2Binding
 import com.example.currency.screen.MainSettingViewModel
@@ -28,7 +29,7 @@ import java.util.*
 
 class MainSettingFragment : Fragment() {
 
-    private var list: MutableList<Currency> = mutableListOf()
+    private var list: MutableList<CurrencyResult> = mutableListOf()
     private val myViewModel: MainSettingViewModel by viewModel()
     private var binding: FragmentMain2Binding? = null
 
@@ -80,10 +81,10 @@ class MainSettingFragment : Fragment() {
 
         myViewModel.nameListLiveDataYeasDay.observe(this.viewLifecycleOwner, Observer { list ->
 
-            currencyAdapter.update(list as MutableList<Currency>)
+            currencyAdapter.update(list as MutableList<CurrencyResult>)
 
             binding!!.bSetting.setOnClickListener {
-                val listR = mutableListOf<Currency>()
+                val listR = mutableListOf<CurrencyResult>()
 
                 list.forEach {
                     if(it.nam == "true") listR.add(it)
@@ -98,7 +99,7 @@ class MainSettingFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun addCurrensy(currency: MutableList<Currency>) {
+    private fun addCurrensy(currency: MutableList<CurrencyResult>) {
         myViewModel.addCurency(currency)
     }
 }

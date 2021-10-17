@@ -12,7 +12,6 @@ class CurrencyDRepository(
     fun getCurrencyList(): Flow<List<CurrencyBd>> =
         currencyDao.getCharacterList().map {
             it.map { currencyEntity ->
-
                 CurrencyBd(
                     currencyEntity.id,
                     currencyEntity.numCod,
@@ -20,7 +19,8 @@ class CurrencyDRepository(
                     currencyEntity.scale,
                     currencyEntity.name,
                     currencyEntity.rate,
-                    currencyEntity.nam
+                    currencyEntity.nam,
+                    currencyEntity.rateNewDay
                 )
             }
         }
@@ -30,6 +30,6 @@ class CurrencyDRepository(
     }
 
     fun CurrencyBd.entity() = CurrencyEntity(
-        this.id, this.numCod, this.charCode, this.scale, this.name, this.rate, this.nam
+        this.id, this.numCod, this.charCode, this.scale, this.name, this.rate, this.nam, this.rateNewDay
     )
 }

@@ -31,7 +31,7 @@ class CurrencyAdapter(
 
             bindingView.tvName.text = item.name
             bindingView.tvCharCod.text = item.charCode
-            bindingView.tvRate.text = item.rate.toString()
+            bindingView.tvRate.text = item.rateNewDay.toString()
             bindingView.tvRate1.text = item.rate.toString()
 
             itemView.setOnLongClickListener() {

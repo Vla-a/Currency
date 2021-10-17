@@ -30,7 +30,8 @@ class MainViewModel(
                     currencyEntity.scale,
                     currencyEntity.name,
                     currencyEntity.rate,
-                    currencyEntity.nam
+                    currencyEntity.nam,
+                    currencyEntity.rateNewDay
                 )
             }
         }.asLiveData()

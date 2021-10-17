@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.example.currency.data.Currency
+import com.example.currency.data.CurrencyResult
 import com.example.currency.restApi.CurrencyRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
@@ -20,14 +21,8 @@ import java.util.*
 class MainSettingViewModel(
     private val cRepository: CurrencyRepository
 ) : ViewModel() {
-
-        val tommorow = LocalDate.now().plus(1, ChronoUnit.DAYS)
-        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-    val yeasDay = LocalDate.now().plus(-1, ChronoUnit.DAYS)
-        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-    val toDay = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(System.currentTimeMillis())
-    val nameListLiveDay: MutableLiveData<MutableList<Currency>> = MutableLiveData()
-    val nameListLiveDataYeasDay: MutableLiveData<MutableList<Currency>> = MutableLiveData()
+    val listPair:MutableList<Pair<String,Double>> = mutableListOf()
+    val nameListLiveDataYeasDay: MutableLiveData<MutableList<CurrencyResult>> = MutableLiveData()
 
 //    val listLiveData: LiveData<List<Currency>> =
 //        cRepository.getList() .map {
@@ -48,27 +43,19 @@ class MainSettingViewModel(
     init {
         viewModelScope.launch(Dispatchers.IO) {
 
-            nameListLiveDay.postValue(cRepository.getCurrenciesListDay(toDay))
-            nameListLiveDataYeasDay.postValue(getCurrensyTommorowOrYeastoday(yeasDay))
-            // Log.e("KEK", cRepository.getCurrenciesListTommorow().toString())
+            nameListLiveDataYeasDay.postValue(cRepository.getCurrenciesResult())
+            Log.e("KEK",LocalDate.now().plus(-1, ChronoUnit.DAYS).toString())
+    //        nameListLiveDataYeasDay.postValue(getCurrensyTommorowOrYeastoday())
+        //    Log.e("KEK", cRepository.getCurrenciesListYesDay().toString())
+
         }
     }
 
-    private suspend fun getCurrensyTommorowOrYeastoday(day: String): MutableList<Currency>{
-      val currencuList =  if(cRepository.getCurrenciesListDay(yeasDay) != null){
-             cRepository.getCurrenciesListDay(yeasDay)
-        }else{
-            cRepository.getCurrenciesListDay(tommorow)
-        }
-        return currencuList
-    }
-
-    fun addCurency(currencyList: MutableList<Currency>) {
+    fun addCurency(currencyList: MutableList<CurrencyResult>) {
 
         viewModelScope.launch {
             cRepository.addCurrency(currencyList)
         }
     }
-
 }
 

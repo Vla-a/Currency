@@ -1,18 +1,15 @@
 package com.example.currency.data
 
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currency.databinding.ItemCurrencuSetingBinding
-import com.example.myhomework.homework13.sharedprefs.SharedPrefsKeyss
 import com.example.myhomework.homework13.sharedprefs.SharedPrefsUtilss
-import kotlinx.serialization.json.Json.Default.context
 
 class CurrencySettingAdapter(
 
-    val currencyList: MutableList<Currency>
+    val currencyList: MutableList<CurrencyResult>
 ) : RecyclerView.Adapter<CurrencySettingAdapter.CurrencyViewHolder>() {
 
     companion object {
@@ -39,7 +36,7 @@ class CurrencySettingAdapter(
         }
     }
 
-    fun update(newSweetList: MutableList<Currency>) {
+    fun update(newSweetList: MutableList<CurrencyResult>) {
         currencyList.clear()
         currencyList.addAll(newSweetList)
         notifyDataSetChanged()
@@ -57,7 +54,7 @@ class CurrencySettingAdapter(
             }
         }
 
-        fun bind(item: Currency) {
+        fun bind(item: CurrencyResult) {
             bindingView.tvCharCod.text = item.charCode
             bindingView.tvName.text = item.name
           bindingView.ASwitch.isChecked = item.nam == "true"
