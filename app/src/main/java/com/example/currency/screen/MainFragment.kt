@@ -85,7 +85,7 @@ class MainFragment : Fragment() {
         setFragmentResultListener(NEWDATE) { key, bundle ->
 val result = bundle.getString(KEYDATE)?.substring(0,10)?.replace("-",".",true)
             if (result == LocalDate.now().plus(1, ChronoUnit.DAYS)
-                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))){
+                    .format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))){
                 binding?.tomorrow?.text = LocalDate.now().plus(1, ChronoUnit.DAYS)
                     .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
             }else{
