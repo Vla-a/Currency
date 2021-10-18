@@ -12,11 +12,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.characters.data.CurrencyAdapter
+import com.example.characters.screen.MainSettingFragment
+import com.example.characters.screen.MainSettingFragment.Companion.KEYDATE
+import com.example.characters.screen.MainSettingFragment.Companion.NEWDATE
 import com.example.characters.screen.MainViewModel
 import com.example.currency.R
 import com.example.currency.data.CurrencyBd
@@ -77,9 +81,18 @@ class MainFragment : Fragment() {
         }
         binding!!.today.text =
             SimpleDateFormat("dd.MM.yyyy", Locale.ROOT).format(System.currentTimeMillis())
-        binding!!.tomorrow.text = LocalDate.now().plus(1, ChronoUnit.DAYS)
-            .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
 
+        setFragmentResultListener(NEWDATE) { key, bundle ->
+val result = bundle.getString(KEYDATE)?.substring(0,10)?.replace("-",".",true)
+            if (result == LocalDate.now().plus(1, ChronoUnit.DAYS)
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))){
+                binding?.tomorrow?.text = LocalDate.now().plus(1, ChronoUnit.DAYS)
+                    .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+            }else{
+                binding?.tomorrow?.text = LocalDate.now().plus(-1, ChronoUnit.DAYS)
+                    .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+            }
+        }
     }
 
     private fun delateCurrency(currencyBd: CurrencyBd) {

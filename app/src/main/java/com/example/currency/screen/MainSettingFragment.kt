@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -91,6 +92,10 @@ class MainSettingFragment : Fragment() {
                 }
                 addCurrensy(listR)
                 it.findNavController().popBackStack()
+
+                setFragmentResult(NEWDATE, Bundle().apply {
+                    putString(KEYDATE, list[0].numCod)
+                })
             }
         })
         binding!!.toolbar.setOnClickListener {
@@ -101,6 +106,11 @@ class MainSettingFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun addCurrensy(currency: MutableList<CurrencyResult>) {
         myViewModel.addCurency(currency)
+    }
+
+    companion object{
+        const val NEWDATE = "DATE"
+        const val KEYDATE = "KEYDATE"
     }
 }
 
