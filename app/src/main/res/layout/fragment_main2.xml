@@ -18,6 +18,7 @@
         app:title="@string/Setting_up_Currencies"
         app:titleTextColor="@color/black">
 
+
         <ImageView
             android:id="@+id/b_setting"
             android:layout_width="wrap_content"

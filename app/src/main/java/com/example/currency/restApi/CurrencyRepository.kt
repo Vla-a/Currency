@@ -28,7 +28,7 @@ class CurrencyRepository(
     val yeasDay = LocalDate.now().plus(-1, ChronoUnit.DAYS)
         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
     val toDay = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(System.currentTimeMillis())
-    var date = ""
+    @RequiresApi(Build.VERSION_CODES.O)
 
 
     suspend fun addCurrency(currencyList: MutableList<CurrencyResult>) {
@@ -102,8 +102,9 @@ class CurrencyRepository(
 
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun getCurrenciesResult(): MutableList<CurrencyResult> {
+val listTommorow = currencyApi.getCharacterListDay(tommorow)
 
-        if (currencyApi.getCharacterListDay(tommorow) == null) {
+        if (listTommorow.isNotEmpty()) {
 
             return withContext(Dispatchers.IO) {
 
@@ -122,8 +123,7 @@ class CurrencyRepository(
                     )
                 }
             } as MutableList<CurrencyResult>
-        }
-
+        }else {
             return withContext(Dispatchers.IO) {
 
                 currencyApi.getCharacterListDay(yeasDay).map {
@@ -141,6 +141,7 @@ class CurrencyRepository(
                     )
                 }
             } as MutableList<CurrencyResult>
+        }
 
     }
 

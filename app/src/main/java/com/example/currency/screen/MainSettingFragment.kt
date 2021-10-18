@@ -47,7 +47,7 @@ class MainSettingFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       SharedPrefsUtilss.sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
+
 
         val currencyAdapter = CurrencySettingAdapter(list)
 
@@ -71,13 +71,11 @@ class MainSettingFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
         })
 
-
         drapAndDrop.attachToRecyclerView(binding?.rvCurrencyS)
 
         binding!!.rvCurrencyS.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding!!.rvCurrencyS?.adapter = currencyAdapter
-
 
 
         myViewModel.nameListLiveDataYeasDay.observe(this.viewLifecycleOwner, Observer { list ->

@@ -12,16 +12,10 @@ class CurrencySettingAdapter(
     val currencyList: MutableList<CurrencyResult>
 ) : RecyclerView.Adapter<CurrencySettingAdapter.CurrencyViewHolder>() {
 
-    companion object {
-        private const val ITEM = 0
-    }
-
     override fun getItemCount(): Int = currencyList.size
 
-    override fun getItemViewType(position: Int) = ITEM
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder{
-        SharedPrefsUtilss.sharedPrefs = PreferenceManager.getDefaultSharedPreferences(parent.context)
+
      return   CurrencyViewHolder(
             ItemCurrencuSetingBinding.inflate(LayoutInflater.from(parent.context)))
 
@@ -48,7 +42,9 @@ class CurrencySettingAdapter(
 
     ) : RecyclerView.ViewHolder(bindingView.root) {
 
+
         init {
+
             bindingView.ASwitch.setOnCheckedChangeListener { _, isChecked ->
                 currencyList[adapterPosition].nam = isChecked.toString()
             }
