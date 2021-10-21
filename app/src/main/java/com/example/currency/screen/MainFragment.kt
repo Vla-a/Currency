@@ -68,7 +68,8 @@ class MainFragment : Fragment() {
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding!!.rvCurrency?.adapter = currencyAdapter
 
-        myViewModel.nameListLiveDataBd.observe(this.viewLifecycleOwner, Observer {list ->
+
+        myViewModel.nameListLiveDataBd.observe(viewLifecycleOwner, Observer {list ->
             currencyAdapter.submitList(list)
             binding!!.bSetting.setOnClickListener {
                 this.findNavController().navigate(MainFragmentDirections.toMain2Fragment())

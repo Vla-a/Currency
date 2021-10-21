@@ -36,7 +36,6 @@ class MySuperApp : Application() {
     private val viewModels = module {
         viewModel { MainViewModel(get(), get()) }
         viewModel { MainSettingViewModel(get()) }
-
     }
 
     private val repositoryModule = module {  //создаем репозитории
